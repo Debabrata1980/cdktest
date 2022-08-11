@@ -2,10 +2,12 @@
 
 import aws_cdk as cdk
 
-from rdscdk.rdscdk_stack import RdscdkStack
+from cdkstack.cdkstack import CdkStack
+from params  import STACK_NAME, PARAMS, PARAMS_ML_EC2, ML_BUCKET_PARAMS, ACCOUNT, REGION, TAGS
 
 
 app = cdk.App()
-RdscdkStack(app, "rdscdk")
+stack= CdkStack(app, "cdkstack",account=ACCOUNT, region=REGION, tags=TAGS)
+stack.define_rds(PARAMS)
 
 app.synth()
