@@ -6,7 +6,7 @@ from collections import namedtuple
 STACK_NAME = "tiger-analytics"
 
 # Account ID
-ACCOUNT = "409599951855"
+ACCOUNT = "273641968769"
 # Region to be deployed
 REGION = "us-west-2"
 # Tags - replace values
