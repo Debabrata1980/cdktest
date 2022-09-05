@@ -58,7 +58,7 @@ PARAMS = {
     "instance_type": "db.m5.xlarge",  # one of https://aws.amazon.com/ec2/instance-types/
     "ami_id": "ami-079fddfb11f574925",  # Image Id to use in the EC2
     "key_name": "tiger_analytics",  # Registered key name for ssh access
-    "vpc_id": "vpc-044e505a699b359c4",
+    "vpc_id": "vpc-547b782c",
     "subnet_type": "PRIVATE",
     "network_rules_ingress": ingress_rules,
     "disks": disks,
@@ -121,7 +121,7 @@ PARAMS_ML_EC2 = {
     "instance_type": "m5a.16xlarge",  # one of https://aws.amazon.com/ec2/instance-types/
     "ami_id": "ami-054213cd4530458f0",  # Image Id to use in the EC2
     "key_name": "tiger_ec2",  # Registered key name for ssh access
-    "vpc_id": "vpc-044e505a699b359c4",
+    "vpc_id": "vpc-547b782c",
     "subnet_type": "PRIVATE",
     "network_rules_ingress": ml_ingress_rules,
     "disks": ml_disks,
