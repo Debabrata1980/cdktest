@@ -63,6 +63,7 @@ PARAMS = {
     "network_rules_ingress": ingress_rules,
     "disks": disks,
     "policy": DOCUMENT_POLICY,
+    "env_name":"MyAirflowEnvironment"
 }
 
 # Data Science ML EC2 for Tiger Analytics
