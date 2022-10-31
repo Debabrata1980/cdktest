@@ -31,8 +31,8 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
         aws-region: 'us-west-2'
-#    - name: Install dependencies and run cdk
-#      run: npm ci
+    - name: Install dependencies and run cdk
+      run: npm ci
         #python -m pip install --upgrade pip
         #npm install -g aws-cdk
         #if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
