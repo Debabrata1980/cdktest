@@ -254,12 +254,12 @@ class CdkStack(Stack):
         )
 
 # Some parameters of mwaa and the tags
-        options = {
-            'core.load_default_connections': False,
-            'core.load_examples': False,
-            'webserver.dag_default_view': 'tree',
-            'webserver.dag_orientation': 'TB'
-        }
+    options = {
+        'core.load_default_connections': False,
+        'core.load_examples': False,
+        'webserver.dag_default_view': 'tree',
+        'webserver.dag_orientation': 'TB'
+    }
 
         tags = {
             'env': f"{params['env_name']}",
