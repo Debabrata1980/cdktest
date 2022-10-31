@@ -77,7 +77,7 @@ class CdkStack(Stack):
                 iam.PolicyStatement(
                     actions=["airflow:PublishMetrics"],
                     effect=iam.Effect.ALLOW,
-                    resources=[f"arn:aws:airflow:{self.region}:{self.account}:environment/{params["env_name"]}"],
+                    resources=[f"arn:aws:airflow:{self.region}:{self.account}:environment/{params['env_name']}"],
                 ),
                 iam.PolicyStatement(
                     actions=[
