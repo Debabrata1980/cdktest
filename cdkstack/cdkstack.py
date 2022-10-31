@@ -202,8 +202,7 @@ class CdkStack(Stack):
         subnets = [subnet.subnet_id for subnet in vpc.private_subnets]
         network_configuration = mwaa.CfnEnvironment.NetworkConfigurationProperty(
             security_group_ids=[security_group_id],
-            subnet_ids=subnets,
-        )
+            subnet_ids=subnets)
 
 #logging configurations
 
