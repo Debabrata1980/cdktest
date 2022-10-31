@@ -184,8 +184,7 @@ class CdkStack(Stack):
                 iam.ServicePrincipal("ecs-tasks.amazonaws.com"),
             ),
             inline_policies={"CDKmwaaPolicyDocument": mwaa_policy_document},
-            path="/service-role/"
-        )
+            path="/service-role/")
 
 # Creation of security group for mwaa environment
 
