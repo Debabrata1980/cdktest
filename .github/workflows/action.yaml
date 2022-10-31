@@ -36,9 +36,9 @@ jobs:
         aws-region: 'us-west-2'
     - name: Install dependencies and run cdk
       run: |
-        sudo npm install
+        #sudo npm install
         python3 -m pip install --upgrade pip
-        npm install -g aws-cdk
+        sudo npm install -g aws-cdk
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         cdk list
         #cdk synth
