@@ -54,7 +54,7 @@ class CdkStack(Stack):
 # bucket_key_enabled= True,
             encryption= s3.BucketEncryption.S3_MANAGED)
             
-            dags_bucket_arn = bucket.bucket_arn
+        dags_bucket_arn = bucket.bucket_arn
 
         core.Tags.of(bucket).add("Name", "mwaa_buck")
         core.Tags.of(bucket).add("env", "MWAAEnvironment")
