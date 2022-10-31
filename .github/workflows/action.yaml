@@ -37,7 +37,7 @@ jobs:
       run: | 
         python3 -m pip install --upgrade pip
         #npm install -g aws-cdk
-        #if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         #cdk list
         #cdk synth
       #cdk deploy
