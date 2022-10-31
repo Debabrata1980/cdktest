@@ -330,5 +330,4 @@ class CdkStack(Stack):
             self,
             id="MWAASecurityGroup",
             value=security_group_id,
-            description="Security Group name used by MWAA"
-        )
+            description="Security Group name used by MWAA")
