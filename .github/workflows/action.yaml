@@ -24,8 +24,8 @@ jobs:
     - name: Setup node 16
       uses: actions/setup-node@v3
       with:
-        node-version: "16.x"
-    - run : sudo apt-get install npm 
+        node-version: "16"
+#    - run : sudo apt-get install npm 
 #    - run : sudo npm ci
     - name: Configure aws credentials
       uses: aws-actions/configure-aws-credentials@master
@@ -34,7 +34,8 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
         aws-region: 'us-west-2'
     - name: Install dependencies and run cdk
-      run: | 
+      run: |
+        npm install
         python3 -m pip install --upgrade pip
         npm install -g aws-cdk
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
