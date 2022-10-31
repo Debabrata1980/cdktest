@@ -226,8 +226,7 @@ class CdkStack(Stack):
             webserver_logs=mwaa.CfnEnvironment.ModuleLoggingConfigurationProperty(
                 enabled=True,
                 log_level="INFO"
-            )
-        )
+            ))
 
 #Creation of managed airflow environment
 
