@@ -261,13 +261,13 @@ class CdkStack(Stack):
         'webserver.dag_orientation': 'TB'
     }
 
-        tags = {
-            'env': f"{params['env_name']}",
-            'service': 'MWAA Apache AirFlow'
-            'Name': f"{params['env_name']}"}
+    tags = {
+        'env': f"{params['env_name']}",
+        'service': 'MWAA Apache AirFlow'
+        'Name': f"{params['env_name']}"}
 
-        managed_airflow.add_override('Properties.AirflowConfigurationOptions', options)
-        managed_airflow.add_override('Properties.Tags', tags)
+    managed_airflow.add_override('Properties.AirflowConfigurationOptions', options)
+    managed_airflow.add_override('Properties.Tags', tags)
 
 
 
@@ -318,16 +318,16 @@ class CdkStack(Stack):
             #                  )
 #send output to the cdk console as well as to the cloudformation
 
-        CfnOutput(
-            self,
-            id="VPCId",
-            value=self.vpc.vpc_id,
-            description="VPC ID",
-            export_name=f"{self.region}:{self.account}:{self.stack_name}:vpc-id"
-        )
-        
-        CfnOutput(
-            self,
-            id="MWAASecurityGroup",
-            value=security_group_id,
-            description="Security Group name used by MWAA")
+    CfnOutput(
+        self,
+        id="VPCId",
+        value=self.vpc.vpc_id,
+        description="VPC ID",
+        export_name=f"{self.region}:{self.account}:{self.stack_name}:vpc-id"
+    )
+    
+    CfnOutput(
+        self,
+        id="MWAASecurityGroup",
+        value=security_group_id,
+        description="Security Group name used by MWAA")
