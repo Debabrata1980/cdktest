@@ -26,6 +26,7 @@ jobs:
       with:
         node-version: 16
     - run : sudo apt-get install npm
+    - run : npm ci
     - name: Configure aws credentials
       uses: aws-actions/configure-aws-credentials@master
       with:
