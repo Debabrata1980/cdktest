@@ -72,7 +72,7 @@ class CdkStack(Stack):
         )
 
 # Add policies
-       mwaa_policy_document = iam.PolicyDocument(
+        mwaa_policy_document = iam.PolicyDocument(
             statements=[
                 iam.PolicyStatement(
                     actions=["airflow:PublishMetrics"],
