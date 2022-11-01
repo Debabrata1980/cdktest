@@ -263,7 +263,7 @@ class CdkStack(Stack):
 
     tags = {
         'env': f"{params['env_name']}",
-        'service': 'MWAA Apache AirFlow'
+        'service': 'MWAA Apache AirFlow',
         'Name': f"{params['env_name']}"}
 
     managed_airflow.add_override('Properties.AirflowConfigurationOptions', options)
