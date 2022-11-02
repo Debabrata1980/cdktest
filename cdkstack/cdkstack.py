@@ -324,7 +324,7 @@ class CdkStack(Stack):
         CfnOutput(
         self,
         id="VPCId",
-        value=self.vpc.vpc_id,
+        value=vpc.vpc_id,
         description="VPC ID",
         export_name=f"{self.region}:{self.account}:{self.stack_name}:vpc-id"
     )
