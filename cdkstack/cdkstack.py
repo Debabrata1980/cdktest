@@ -234,7 +234,7 @@ class CdkStack(Stack):
 
     managed_airflow = mwaa.CfnEnvironment(
             id='airflow-test-environment',
-            name=f"{params['env_name']}",
+            name=params["env_name"],
             airflow_configuration_options={'core.default_timezone': 'utc'},
             airflow_version='2.0.2',
             dag_s3_path="dags",
