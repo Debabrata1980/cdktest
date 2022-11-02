@@ -31,7 +31,7 @@ class CdkStack(Stack):
         
         # Create VPC network for mwaa
 
-        self.vpc = ec2.Vpc(
+        vpc = ec2.Vpc(
             self,
             id="MWAA-Hybrid-ApacheAirflow-VPC",
             cidr="10.192.0.0/16",
