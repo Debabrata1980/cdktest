@@ -5,6 +5,7 @@ import aws_cdk as core
 from aws_cdk import (
     Duration,
     Stack,
+    CfnOutput,
     aws_ec2 as ec2,
     aws_iam as iam,
     aws_rds as rds,
