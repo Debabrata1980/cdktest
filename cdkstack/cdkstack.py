@@ -63,7 +63,7 @@ class CdkStack(Stack):
         core.Tags.of(bucket).add("env", "MWAAEnvironment")
         core.Tags.of(bucket).add("service", "MWAA_Apache_Airflow")
         core.Tags.of(bucket).add("service", "MWAA_Apache_Airflow")
-        core.Tags.of(self.vpc).add("Name", "MWAAEnvironment")
+        core.Tags.of(vpc).add("Name", "MWAAEnvironment")
 
 #    Below code to deploy the dag folder and files in s3 bucket
         # s3deploy.BucketDeployment(self, "DeployDAG",
