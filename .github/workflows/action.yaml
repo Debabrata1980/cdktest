@@ -41,5 +41,5 @@ jobs:
         sudo npm install -g aws-cdk
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         cdk list
-        #cdk synth
+        cdk synth
       #cdk deploy
