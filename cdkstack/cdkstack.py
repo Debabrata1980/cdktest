@@ -66,13 +66,13 @@ class CdkStack(Stack):
         core.Tags.of(self.vpc).add("Name", "MWAAEnvironment")
 
 #    Below code to deploy the dag folder and files in s3 bucket
-        s3deploy.BucketDeployment(self, "DeployDAG",
-        sources=[s3deploy.Source.asset("./dags")],
-        destination_bucket=bucket,
-        destination_key_prefix="dags",
-        prune=False,
-        retain_on_delete=False
-        )
+        # s3deploy.BucketDeployment(self, "DeployDAG",
+        # sources=[s3deploy.Source.asset("./dags")],
+        # destination_bucket=bucket,
+        # destination_key_prefix="dags",
+        # prune=False,
+        # retain_on_delete=False
+        # )
 
 # Add policies
         mwaa_policy_document = iam.PolicyDocument(
