@@ -21,7 +21,7 @@ class CdkStack(Stack):
     def __init__(self, scope: Construct, stack_name: str, account: str, region: str, tags, params, **kwargs) -> None:
         environment = core.Environment(account=account, region=region)
 
-        super().__init__(scope, stack_name=stack_name, env=environment, tags=tags,  **kwargs)
+        super().__init__(scope, id = stack_name, stack_name=stack_name, env=environment, tags=tags,  **kwargs)
         
         vpc_tags = {
         'name' : 'MWAAEnvironment' 
