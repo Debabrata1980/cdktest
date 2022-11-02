@@ -250,7 +250,7 @@ class CdkStack(Stack):
             #requirements_s3_object_version=None,
             #requirements_s3_path=None,
             source_bucket_arn=dags_bucket_arn,
-            webserver_access_mode='PUBLIC_ONLY',
+            webserver_access_mode='PUBLIC_ONLY'
             #weekly_maintenance_window_start=None
         )
 
