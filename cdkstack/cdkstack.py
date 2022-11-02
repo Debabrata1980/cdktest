@@ -255,7 +255,7 @@ class CdkStack(Stack):
         )
 
 # Some parameters of mwaa and the tags
-    options = {
+        options = {
         'core.load_default_connections': False,
         'core.load_examples': False,
         'webserver.dag_default_view': 'tree',
