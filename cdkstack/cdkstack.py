@@ -233,7 +233,6 @@ class CdkStack(Stack):
 
 
     managed_airflow = mwaa.CfnEnvironment(
-            self,
             id='airflow-test-environment',
             name=f"{params['env_name']}",
             airflow_configuration_options={'core.default_timezone': 'utc'},
