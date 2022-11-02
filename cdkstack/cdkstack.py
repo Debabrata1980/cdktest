@@ -23,6 +23,7 @@ class CdkStack(Stack):
 
         super().__init__(scope, id = stack_name, stack_name=stack_name, env=environment, tags=tags,params=params,  **kwargs)
         
+        airflow_env_name = params["env_name"]
         vpc_tags = {
         'name' : 'MWAAEnvironment' 
         }
@@ -234,7 +235,7 @@ class CdkStack(Stack):
 
     managed_airflow = mwaa.CfnEnvironment(
             id='airflow-test-environment',
-            name=params["env_name"],
+            airflow_env_name,
             airflow_configuration_options={'core.default_timezone': 'utc'},
             airflow_version='2.0.2',
             dag_s3_path="dags",
