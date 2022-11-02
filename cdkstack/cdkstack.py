@@ -319,7 +319,7 @@ class CdkStack(Stack):
             #                  )
 #send output to the cdk console as well as to the cloudformation
 
-    CfnOutput(
+        CfnOutput(
         self,
         id="VPCId",
         value=self.vpc.vpc_id,
@@ -327,7 +327,7 @@ class CdkStack(Stack):
         export_name=f"{self.region}:{self.account}:{self.stack_name}:vpc-id"
     )
     
-    CfnOutput(
+        CfnOutput(
         self,
         id="MWAASecurityGroup",
         value=security_group_id,
