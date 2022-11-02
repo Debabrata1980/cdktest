@@ -10,7 +10,8 @@ from aws_cdk import (
     aws_rds as rds,
     aws_kms as kms,
     aws_s3 as s3,
-    aws_mwaa as mwaa
+    aws_mwaa as mwaa,
+    aws_s3_deployment as s3deploy
 )
 
 
