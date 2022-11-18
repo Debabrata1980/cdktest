@@ -2,6 +2,8 @@ from constructs import Construct
 
 import aws_cdk as core
 
+import json 
+
 from aws_cdk import (
     Duration,
     Stack,
@@ -12,7 +14,8 @@ from aws_cdk import (
     aws_kms as kms,
     aws_s3 as s3,
     aws_mwaa as mwaa,
-    aws_s3_deployment as s3deploy
+    aws_s3_deployment as s3deploy,
+    aws_secretsmanager as secretsmanager
 )
 
 
@@ -285,10 +288,16 @@ class CdkStack(Stack):
         managed_airflow.add_override('Properties.AirflowConfigurationOptions', options)
         managed_airflow.add_override('Properties.Tags', tags)
 
+# Templated secret
+        templated_secret = secretsmanager.Secret(self, "TemplatedSecret",
+            generate_secret_string=secretsmanager.SecretStringGenerator(
+                secret_string_template=json.stringify({"username": "user"}),
+                generate_string_key="password"
+            )
+        )
 
 
-
-     def define_rds(self,params):
+        def define_rds(self,params):
 
              vpc = ec2.Vpc.from_lookup(self, 'VPC' + '_' + params["name"], vpc_id=params["vpc_id"])
 
@@ -319,17 +328,19 @@ class CdkStack(Stack):
                               security_groups = ["security_group_id","sg-c98b59be"],
  # #                            security_groups = ["sg-c98b59be", "sg-d71df7a0"],
                               storage_type = rds.StorageType.IO1
-  #                            credentials=rds.Credentials.from_generated_secret("mysql_secret")
+                              credentials=rds.Credentials.from_generated_secret("templated_secret")
                               )
 
-            my_user_secret = rds.DatabaseSecret(self, "MyUserSecret",
-                username="myuser",
-                secret_name="my-user-secret",  # optional, defaults to a CloudFormation-generated name
-                master_secret=instance.secret,
-                exclude_characters="{}[]()'"/\"
-                )
+"""              my_user_secret = rds.DatabaseSecret(self, "MyUserSecret",
+                    username="myuser",
+                    secret_name="my-user-secret",  # optional, defaults to a CloudFormation-generated name
+                    master_secret=instance.secret
+ #                   exclude_characters="{}[]()'"/\"
+                    ) """
+
+
             
-            my_user_secret_attached = my_user_secret.attach(instance)
+ #            my_user_secret_attached = my_user_secret.attach(instance)
             
             # rds.DatabaseInstance(self, "InstanceWithUsernameAndPassword",
             #                  engine=engine,
