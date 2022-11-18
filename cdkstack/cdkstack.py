@@ -327,7 +327,7 @@ class CdkStack(Stack):
                               publicly_accessible = False,
                               security_groups = ["security_group_id","sg-c98b59be"],
  # #                            security_groups = ["sg-c98b59be", "sg-d71df7a0"],
-                              storage_type = rds.StorageType.IO1
+                              storage_type = rds.StorageType.IO1,
                               credentials=rds.Credentials.from_generated_secret("templated_secret")
                               )
 
@@ -357,16 +357,16 @@ class CdkStack(Stack):
             #                  )
 #send output to the cdk console as well as to the cloudformation
 
-        CfnOutput(
-        self,
-        id="VPCId",
-        value=vpc.vpc_id,
-        description="VPC ID",
-        export_name=f"{self.region}:{self.account}:{self.stack_name}:vpc-id"
-    )
+CfnOutput(
+                self,
+                id="VPCId",
+                value=vpc.vpc_id,
+                description="VPC ID",
+                export_name=f"{self.region}:{self.account}:{self.stack_name}:vpc-id"
+                    )
     
-        CfnOutput(
-        self,
-        id="MWAASecurityGroup",
-        value=security_group_id,
-        description="Security Group name used by MWAA")
+CfnOutput(
+                self,
+                id="MWAASecurityGroup",
+                value=security_group_id,
+                description="Security Group name used by MWAA")
