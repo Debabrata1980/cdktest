@@ -331,6 +331,19 @@ class CdkStack(Stack):
                               credentials=rds.Credentials.from_generated_secret("templated_secret")
                               )
 
+        CfnOutput(self,
+                id="VPCId",
+                value=vpc.vpc_id,
+                description="VPC ID",
+                export_name=f"{self.region}:{self.account}:{self.stack_name}:vpc-id"
+                    )
+
+        CfnOutput(
+                self,
+                id="MWAASecurityGroup",
+                value=security_group_id,
+                description="Security Group name used by MWAA")
+
 """              my_user_secret = rds.DatabaseSecret(self, "MyUserSecret",
                     username="myuser",
                     secret_name="my-user-secret",  # optional, defaults to a CloudFormation-generated name
@@ -357,16 +370,5 @@ class CdkStack(Stack):
             #                  )
 #send output to the cdk console as well as to the cloudformation
 
-CfnOutput(
-                self,
-                id="VPCId",
-                value=vpc.vpc_id,
-                description="VPC ID",
-                export_name=f"{self.region}:{self.account}:{self.stack_name}:vpc-id"
-                    )
+
     
-CfnOutput(
-                self,
-                id="MWAASecurityGroup",
-                value=security_group_id,
-                description="Security Group name used by MWAA")
