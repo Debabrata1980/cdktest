@@ -203,6 +203,11 @@ class CdkStack(Stack):
             security_group_name = "meta-tag-sg"
         )
         
+        security_group.connections.allow_from(
+            ec2.Peer.any_ipv4(),
+            ec2.Port.tcp(22),
+            "ssh" 
+            )
         security_group.addIngressRule(
           ec2.Peer.ipv4('172.21.58.218/32'),
           connection=ec2.Port.tcp(3306),
