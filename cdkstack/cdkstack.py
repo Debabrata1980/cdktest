@@ -204,14 +204,14 @@ class CdkStack(Stack):
         
         security_group.addIngressRule(
           ec2.Peer.ipv4('172.21.58.218/32'),
-          ec2.Port.tcp(3306),
-          'allow tcp 3306 port connection  from IP range',
+          connection=ec2.Port.tcp(3306),
+          description='allow tcp 3306 port connection  from IP range',
         )
         
         security_group.addIngressRule(
           ec2.Peer.ipv4('172.29.14.29/32'),
-          ec2.Port.tcp(3306),
-          'allow tcp 3306 port connection  from IP range',
+          connection=ec2.Port.tcp(3306),
+          description='allow tcp 3306 port connection  from IP range',
         )
         
 
