@@ -194,14 +194,27 @@ class CdkStack(Stack):
 
         security_group = ec2.SecurityGroup(
             self,
-            id = "mwaa-sg",
+            id = "meta-tag-sg",
             vpc = vpc,
-            security_group_name = "mwaa-sg"
+            security_group_name = "meta-tag-sg"
         )
+        
+        security_group.addIngressRule(
+          ec2.Peer.ipv4('172.21.58.218/32'),
+          ec2.Port.tcp(3306),
+          'allow tcp 3306 port connection  from IP range',
+        )
+        
+        security_group.addIngressRule(
+          ec2.Peer.ipv4('172.29.14.29/32'),
+          ec2.Port.tcp(3306),
+          'allow tcp 3306 port connection  from IP range',
+        )
+        
 
         security_group_id = security_group.security_group_id
 
-        security_group.connections.allow_internally(ec2.Port.all_traffic(),"MWAA")
+        #security_group.connections.allow_internally(ec2.Port.all_traffic(),"MWAA")
 
         subnets = [subnet.subnet_id for subnet in vpc.private_subnets]
         network_configuration = mwaa.CfnEnvironment.NetworkConfigurationProperty(
@@ -274,38 +287,50 @@ class CdkStack(Stack):
 
 
 
-    # def define_rds(self,params):
 
-            # vpc = ec2.Vpc.from_lookup(self, 'VPC' + '_' + params["name"], vpc_id=params["vpc_id"])
+     def define_rds(self,params):
 
-            # retention = Duration.days(7)
+             vpc = ec2.Vpc.from_lookup(self, 'VPC' + '_' + params["name"], vpc_id=params["vpc_id"])
+
+             retention = Duration.days(7)
     # #        key = kms.Ikey("arn:aws:kms:us-east-1:409599951855:key/20c09f0c-e88a-4b33-aaef-d1e675c3f28e")
 
 
             # engine = rds.DatabaseInstanceEngine.postgres(version=rds.PostgresEngineVersion.VER_11_13)
-            # rds.DatabaseInstance(self, "akamai_db",
-                             # engine=engine,
-                             # database_name = "akamai-db",
-                             # instance_type = ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE2, ec2.InstanceSize.LARGE),
-                             # license_model = rds.LicenseModel.GENERAL_PUBLIC_LICENSE,
-                             # availability_zone = "us-east-1c",
-                             # backup_retention = retention,
+             engine = rds.DatabaseInstanceEngine.mysql(version=rds.MysqlEngineVersion.VER_5_7_40)
+             rds.DatabaseInstance(self, "meta_tag_rds",
+                              engine=engine,
+                              database_name = "meta_tag_rds",
+                              instance_type = ec2.InstanceType.of(ec2.InstanceClass.T3, ec2.InstanceSize.MICRO),
+                              license_model = rds.LicenseModel.GENERAL_PUBLIC_LICENSE,
+                              availability_zone = "us-west-2a",
+                              backup_retention = retention,
                              # cloudwatch_logs_exports = ["upgrade"],
-                             # copy_tags_to_snapshot = True,
-                             # vpc=vpc,
-                             # deletion_protection = True,
-                             # enable_performance_insights = True,
-                             # instance_identifier = "akamai_db",
-                             # iops = 2000,
-                             # max_allocated_storage = 1500,
- # #                           performance_insight_encryption_key = ["arn:aws:kms:us-east-1:409599951855:key/20c09f0c-e88a-4b33-aaef-d1e675c3f28e"],
-                             # port = 5432,
-                             # publicly_accessible = False,
+                              copy_tags_to_snapshot = True,
+                              vpc=vpc,
+                              deletion_protection = True,
+                              enable_performance_insights = True,
+                              instance_identifier = "meta_tag_rds",
+                              iops = 3000,
+                              max_allocated_storage = 2000,
+                              performance_insight_encryption_key = ["arn:aws:kms:us-east-1:409599951855:key/20c09f0c-e88a-4b33-aaef-d1e675c3f28e"],
+                              port = 3306,
+                              publicly_accessible = False,
+                              security_groups = ["security_group_id","sg-c98b59be"],
  # #                            security_groups = ["sg-c98b59be", "sg-d71df7a0"],
-                             # storage_type = rds.StorageType.IO1,
-                             # credentials=rds.Credentials.from_generated_secret("postgres")
-                             # )
+                              storage_type = rds.StorageType.IO1
+  #                            credentials=rds.Credentials.from_generated_secret("mysql_secret")
+                              )
 
+            my_user_secret = rds.DatabaseSecret(self, "MyUserSecret",
+                username="myuser",
+                secret_name="my-user-secret",  # optional, defaults to a CloudFormation-generated name
+                master_secret=instance.secret,
+                exclude_characters="{}[]()'"/\"
+                )
+            
+            my_user_secret_attached = my_user_secret.attach(instance)
+            
             # rds.DatabaseInstance(self, "InstanceWithUsernameAndPassword",
             #                  engine=engine,
             #                  vpc=vpc,
