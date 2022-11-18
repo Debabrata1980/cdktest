@@ -199,6 +199,7 @@ class CdkStack(Stack):
             self,
             id = "meta-tag-sg",
             vpc = vpc,
+            allow_all_outbound=True,
             security_group_name = "meta-tag-sg"
         )
         
