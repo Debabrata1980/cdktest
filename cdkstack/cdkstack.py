@@ -292,7 +292,7 @@ class CdkStack(Stack):
 # Templated secret
         templated_secret = secretsmanager.Secret(self, "TemplatedSecret",
             generate_secret_string=secretsmanager.SecretStringGenerator(
-                secret_string_template=json.stringify({"username": "user"}),
+                secret_string_template=json.loads({"username": "user"}),
                 generate_string_key="password"
             )
         )
