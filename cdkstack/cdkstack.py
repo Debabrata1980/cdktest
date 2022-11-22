@@ -342,7 +342,7 @@ class CdkStack(Stack):
                               instance_identifier = "meta_tag_rds",
                               iops = 3000,
                               max_allocated_storage = 2000,
-                              performance_insight_encryption_key = ["arn:aws:kms:us-east-1:409599951855:key/20c09f0c-e88a-4b33-aaef-d1e675c3f28e"],
+ #                             performance_insight_encryption_key = ["arn:aws:kms:us-east-1:409599951855:key/20c09f0c-e88a-4b33-aaef-d1e675c3f28e"],
                               port = 3306,
                               publicly_accessible = False,
                               security_groups = ["security_group_id","sg-c98b59be"],
