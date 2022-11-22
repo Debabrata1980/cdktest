@@ -324,7 +324,9 @@ class CdkStack(Stack):
              retention = Duration.days(7)
     # #        key = kms.Ikey("arn:aws:kms:us-east-1:409599951855:key/20c09f0c-e88a-4b33-aaef-d1e675c3f28e")
 
-
+             rdssecret = rds.DatabaseSecret(self, "AuroraSecret",
+                            username="clusteradmin"
+                        )
             # engine = rds.DatabaseInstanceEngine.postgres(version=rds.PostgresEngineVersion.VER_11_13)
              engine = rds.DatabaseInstanceEngine.mysql(version=rds.MysqlEngineVersion.VER_5_7_37)
              rds.DatabaseInstance(self, "meta_tag_rds",
@@ -348,7 +350,8 @@ class CdkStack(Stack):
                               security_groups = [self.security_group_id,"sg-c98b59be"],
  # #                            security_groups = ["sg-c98b59be", "sg-d71df7a0"],
                               storage_type = rds.StorageType.IO1,
-                              credentials=rds.Credentials.from_generated_secret(username="admin")
+                              credentials={"username": "clusteradmin"}
+ #                             credentials=rds.Credentials.from_generated_secret(username="admin")
                               )
 
 #               my_user_secret = rds.DatabaseSecret(self, "MyUserSecret",
