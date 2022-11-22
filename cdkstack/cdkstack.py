@@ -304,8 +304,20 @@ class CdkStack(Stack):
             password=secret.secret_value
         )
 
+        CfnOutput(self,
+                id="VPCId",
+                value=vpc.vpc_id,
+                description="VPC ID",
+                export_name=f"{self.region}:{self.account}:{self.stack_name}:vpc-id"
+                    )
 
-        def define_rds(self,params):
+        CfnOutput(
+                self,
+                id="MWAASecurityGroup",
+                value=security_group_id,
+                description="Security Group name used by MWAA")
+
+    def define_rds(self,params):
 
              vpc = ec2.Vpc.from_lookup(self, 'VPC' + '_' + params["name"], vpc_id=params["vpc_id"])
 
@@ -339,25 +351,12 @@ class CdkStack(Stack):
                               credentials=rds.Credentials.from_generated_secret("secret")
                               )
 
-        CfnOutput(self,
-                id="VPCId",
-                value=vpc.vpc_id,
-                description="VPC ID",
-                export_name=f"{self.region}:{self.account}:{self.stack_name}:vpc-id"
-                    )
-
-        CfnOutput(
-                self,
-                id="MWAASecurityGroup",
-                value=security_group_id,
-                description="Security Group name used by MWAA")
-
-"""              my_user_secret = rds.DatabaseSecret(self, "MyUserSecret",
-                    username="myuser",
-                    secret_name="my-user-secret",  # optional, defaults to a CloudFormation-generated name
-                    master_secret=instance.secret
- #                   exclude_characters="{}[]()'"/\"
-                    ) """
+#               my_user_secret = rds.DatabaseSecret(self, "MyUserSecret",
+#                     username="myuser",
+#                     secret_name="my-user-secret",  # optional, defaults to a CloudFormation-generated name
+#                     master_secret=instance.secret
+#                     exclude_characters="{}[]()'"/\"
+#                     ) 
 
 
             
