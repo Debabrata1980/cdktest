@@ -222,7 +222,7 @@ class CdkStack(Stack):
 
         subnets = [subnet.subnet_id for subnet in vpc.private_subnets]
         network_configuration = mwaa.CfnEnvironment.NetworkConfigurationProperty(
-            security_group_ids=[security_group_id],
+            security_group_ids=[self.security_group_id],
             subnet_ids=subnets)
 
 #logging configurations
@@ -314,7 +314,7 @@ class CdkStack(Stack):
         CfnOutput(
                 self,
                 id="MWAASecurityGroup",
-                value=security_group_id,
+                value=self.security_group_id,
                 description="Security Group name used by MWAA")
 
     def define_rds(self,params):
