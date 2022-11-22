@@ -330,7 +330,7 @@ class CdkStack(Stack):
              rds.DatabaseInstance(self, "meta_tag_rds",
                               engine=engine,
                               database_name = "meta_tag_rds",
-                              instance_type = ec2.InstanceType.of(ec2.InstanceClass.T3, ec2.InstanceSize.MICRO),
+                              instance_type = ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE3, ec2.InstanceSize.MICRO),
                               license_model = rds.LicenseModel.GENERAL_PUBLIC_LICENSE,
                               availability_zone = "us-west-2a",
                               backup_retention = retention,
