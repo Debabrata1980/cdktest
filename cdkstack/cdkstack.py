@@ -216,7 +216,7 @@ class CdkStack(Stack):
             )
        
 
-        security_group_id = security_group.security_group_id
+        self.security_group_id = security_group.security_group_id
 
         #security_group.connections.allow_internally(ec2.Port.all_traffic(),"MWAA")
 
@@ -345,7 +345,7 @@ class CdkStack(Stack):
  #                             performance_insight_encryption_key = ["arn:aws:kms:us-east-1:409599951855:key/20c09f0c-e88a-4b33-aaef-d1e675c3f28e"],
                               port = 3306,
                               publicly_accessible = False,
-                              security_groups = ["security_group_id","sg-c98b59be"],
+                              security_groups = [self.security_group_id,"sg-c98b59be"],
  # #                            security_groups = ["sg-c98b59be", "sg-d71df7a0"],
                               storage_type = rds.StorageType.IO1,
                               credentials=rds.Credentials.from_generated_secret("secret")
