@@ -301,7 +301,7 @@ class CdkStack(Stack):
         self.secret = secretsmanager.Secret(self, "Secret")
         # Using the default secret
         iam.User(self, "User",
-            password=secret.secret_value
+            password=self.secret.secret_value
         )
 
         CfnOutput(self,
