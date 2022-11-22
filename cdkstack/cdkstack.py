@@ -348,7 +348,7 @@ class CdkStack(Stack):
                               security_groups = [self.security_group_id,"sg-c98b59be"],
  # #                            security_groups = ["sg-c98b59be", "sg-d71df7a0"],
                               storage_type = rds.StorageType.IO1,
-                              credentials=rds.Credentials.from_generated_secret(self.secret)
+                              credentials=rds.Credentials.from_generated_secret('admin')
                               )
 
 #               my_user_secret = rds.DatabaseSecret(self, "MyUserSecret",
