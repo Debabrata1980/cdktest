@@ -2,7 +2,7 @@ from constructs import Construct
 
 import aws_cdk as core
 
-import JSON 
+import json 
 
 from aws_cdk import (
     Duration,
