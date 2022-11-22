@@ -2,6 +2,8 @@
 
 import aws_cdk as cdk
 
+import JSON
+
 from cdkstack.cdkstack import CdkStack
 from params  import STACK_NAME, PARAMS, PARAMS_ML_EC2, ML_BUCKET_PARAMS, ACCOUNT, REGION, TAGS
 
