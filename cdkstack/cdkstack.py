@@ -195,7 +195,7 @@ class CdkStack(Stack):
 
 # Creation of security group for mwaa environment
 
-        security_group = ec2.SecurityGroup(
+        self.security_group = ec2.SecurityGroup(
             self,
             id = "meta-tag-sg",
             vpc = vpc,
@@ -203,20 +203,20 @@ class CdkStack(Stack):
             security_group_name = "meta-tag-sg"
         )
         
-        security_group.connections.allow_from(
+        self.security_group.connections.allow_from(
             ec2.Peer.ipv4('172.21.58.218/32'),
             ec2.Port.tcp(3306),
             "allow tcp 3306 port connection  from IP range" 
             )
 
-        security_group.connections.allow_from(
+        self.security_group.connections.allow_from(
             ec2.Peer.ipv4('172.29.14.29/32'),
             ec2.Port.tcp(3306),
             "allow tcp 3306 port connection  from IP range" 
             )
        
 
-        self.security_group_id = security_group.security_group_id
+        self.security_group_id = self.security_group.security_group_id
 
         #security_group.connections.allow_internally(ec2.Port.all_traffic(),"MWAA")
 
