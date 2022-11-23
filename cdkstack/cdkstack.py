@@ -317,6 +317,10 @@ class CdkStack(Stack):
                 value=self.security_group_id,
                 description="Security Group name used by MWAA")
 
+        rdssecret = rds.DatabaseSecret(self, "AuroraSecret",
+                    username="clusteradmin"
+                )
+
     def define_rds(self,params):
 
              vpc = ec2.Vpc.from_lookup(self, 'VPC' + '_' + params["name"], vpc_id=params["vpc_id"])
@@ -324,9 +328,7 @@ class CdkStack(Stack):
              retention = Duration.days(7)
     # #        key = kms.Ikey("arn:aws:kms:us-east-1:409599951855:key/20c09f0c-e88a-4b33-aaef-d1e675c3f28e")
 
-             rdssecret = rds.DatabaseSecret(self, "AuroraSecret",
-                            username="clusteradmin"
-                        )
+
             # engine = rds.DatabaseInstanceEngine.postgres(version=rds.PostgresEngineVersion.VER_11_13)
              engine = rds.DatabaseInstanceEngine.mysql(version=rds.MysqlEngineVersion.VER_5_7_37)
              rds.DatabaseInstance(self, "meta_tag_rds",
