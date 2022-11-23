@@ -317,7 +317,7 @@ class CdkStack(Stack):
                 value=self.security_group_id,
                 description="Security Group name used by MWAA")
 
-        rdssecret = rds.DatabaseSecret(self, "AuroraSecret",
+        self.rdssecret = rds.DatabaseSecret(self, "AuroraSecret",
                     username="clusteradmin"
                 )
 
