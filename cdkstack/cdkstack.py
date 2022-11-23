@@ -349,7 +349,7 @@ class CdkStack(Stack):
                               publicly_accessible = False,
                               security_groups = [self.security_group_id,"sg-c98b59be"],
  # #                            security_groups = ["sg-c98b59be", "sg-d71df7a0"],
-                              storage_type = rds.StorageType.IO1,
+                              storage_type = rds.StorageType.IO1
  #                             credentials={"username": "clusteradmin"}
  #                             credentials=rds.Credentials.from_secret(secret)
  #                             credentials=rds.Credentials.from_secret(self.secret)
