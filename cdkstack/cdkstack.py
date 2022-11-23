@@ -348,7 +348,7 @@ class CdkStack(Stack):
                               max_allocated_storage = 2000,
                               port = 3306,
                               publicly_accessible = False,
-                              security_groups = ["securtiy_group","sg-c98b59be"],
+                              security_groups = [self.securtiy_group,"sg-c98b59be"],
                               storage_type = rds.StorageType.IO1,
                               credentials=rds.Credentials.from_secret(self.secret)
                               )
