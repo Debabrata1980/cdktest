@@ -351,7 +351,8 @@ class CdkStack(Stack):
  # #                            security_groups = ["sg-c98b59be", "sg-d71df7a0"],
                               storage_type = rds.StorageType.IO1,
  #                             credentials={"username": "clusteradmin"}
-                              credentials=rds.Credentials.from_secret(self.secret)
+                              credentials=rds.Credentials.fromGeneratedSecret('postgres')
+ #                             credentials=rds.Credentials.from_secret(self.secret)
                               )
 
 #               my_user_secret = rds.DatabaseSecret(self, "MyUserSecret",
