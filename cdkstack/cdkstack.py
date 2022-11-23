@@ -35,7 +35,7 @@ class CdkStack(Stack):
         
         # Create VPC network for mwaa
 
-        vpc = ec2.Vpc(
+        self.vpc = ec2.Vpc(
             self,
             id="MWAA-Hybrid-ApacheAirflow-VPC",
             cidr="10.192.0.0/16",
@@ -67,7 +67,7 @@ class CdkStack(Stack):
         core.Tags.of(bucket).add("env", "MWAAEnvironment")
         core.Tags.of(bucket).add("service", "MWAA_Apache_Airflow")
         core.Tags.of(bucket).add("service", "MWAA_Apache_Airflow")
-        core.Tags.of(vpc).add("Name", "MWAAEnvironment")
+        core.Tags.of(self.vpc).add("Name", "MWAAEnvironment")
 
 #    Below code to deploy the dag folder and files in s3 bucket
         # s3deploy.BucketDeployment(self, "DeployDAG",
@@ -198,7 +198,7 @@ class CdkStack(Stack):
         self.security_group = ec2.SecurityGroup(
             self,
             id = "meta-tag-sg",
-            vpc = vpc,
+            vpc = self.vpc,
             allow_all_outbound=True,
             security_group_name = "meta-tag-sg"
         )
@@ -220,7 +220,7 @@ class CdkStack(Stack):
 
         #security_group.connections.allow_internally(ec2.Port.all_traffic(),"MWAA")
 
-        subnets = [subnet.subnet_id for subnet in vpc.private_subnets]
+        subnets = [subnet.subnet_id for subnet in self.vpc.private_subnets]
         network_configuration = mwaa.CfnEnvironment.NetworkConfigurationProperty(
             security_group_ids=[self.security_group_id],
             subnet_ids=subnets)
@@ -306,7 +306,7 @@ class CdkStack(Stack):
 
         CfnOutput(self,
                 id="VPCId",
-                value=vpc.vpc_id,
+                value=self.vpc.vpc_id,
                 description="VPC ID",
                 export_name=f"{self.region}:{self.account}:{self.stack_name}:vpc-id"
                     )
@@ -323,7 +323,7 @@ class CdkStack(Stack):
 
     def define_rds(self,params):
 
-             vpc = ec2.Vpc.from_lookup(self, 'VPC' + '_' + params["name"], vpc_id=params["vpc_id"])
+            # vpc = ec2.Vpc.from_lookup(self, 'VPC' + '_' + params["name"], vpc_id=params["vpc_id"])
 
              retention = Duration.days(7)
     # #        key = kms.Ikey("arn:aws:kms:us-east-1:409599951855:key/20c09f0c-e88a-4b33-aaef-d1e675c3f28e")
@@ -340,7 +340,7 @@ class CdkStack(Stack):
                               backup_retention = retention,
                              # cloudwatch_logs_exports = ["upgrade"],
                               copy_tags_to_snapshot = True,
-                              vpc=vpc,
+                              vpc=self.vpc,
                               deletion_protection = True,
                               enable_performance_insights = True,
                               instance_identifier = "meta_tag_rds",
