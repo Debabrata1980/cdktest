@@ -353,7 +353,7 @@ class CdkStack(Stack):
  #                             credentials={"username": "clusteradmin"}
  #                             credentials={"username": "clusteradmin"}
  #                             credentials=rds.Credentials.from_secret(secret)
-                              credentials=rds.Credentials.from_generated_secret(rdssecret)
+                              credentials=rds.Credentials.from_generated_secret(rdssecret,'username')
                               )
 
 #               my_user_secret = rds.DatabaseSecret(self, "MyUserSecret",
