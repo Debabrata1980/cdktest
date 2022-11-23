@@ -290,7 +290,7 @@ class CdkStack(Stack):
         managed_airflow.add_override('Properties.Tags', tags)
 
 # Templated secret
-        templated_secret = secretsmanager.Secret(self, "TemplatedSecret",
+        self.templated_secret = secretsmanager.Secret(self, "TemplatedSecret",
             generate_secret_string=secretsmanager.SecretStringGenerator(
                 secret_string_template=json.dumps({"username": "user"}),
                 generate_string_key="password"
