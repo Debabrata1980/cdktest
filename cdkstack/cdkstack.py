@@ -331,7 +331,7 @@ class CdkStack(Stack):
 
             # engine = rds.DatabaseInstanceEngine.postgres(version=rds.PostgresEngineVersion.VER_11_13)
              engine = rds.DatabaseInstanceEngine.mysql(version=rds.MysqlEngineVersion.VER_5_7_37)
-             rds.DatabaseInstance(self, "meta_tag_rds",
+             instance = rds.DatabaseInstance(self, "meta_tag_rds",
                               engine=engine,
                               database_name = "meta_tag_rds",
                               instance_type = ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE3, ec2.InstanceSize.MICRO),
