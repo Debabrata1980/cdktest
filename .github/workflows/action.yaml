@@ -43,4 +43,4 @@ jobs:
         cdk list
         cdk synth
         cdk bootstrap
-        cdk deploy
+        cdk deploy --require-approval never
