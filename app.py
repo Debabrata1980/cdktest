@@ -9,7 +9,7 @@ from params  import STACK_NAME, PARAMS, PARAMS_ML_EC2, ML_BUCKET_PARAMS, ACCOUNT
 
 
 app = cdk.App()
-stack= CdkStack(app, "cdkstack",account=ACCOUNT, region=REGION, tags=TAGS, params=PARAMS)
+stack= CdkStack(app, STACK_NAME,account=ACCOUNT, region=REGION, tags=TAGS, params=PARAMS)
 stack.define_rds(params=PARAMS)
 
 
