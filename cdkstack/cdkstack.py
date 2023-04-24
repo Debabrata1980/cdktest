@@ -303,6 +303,22 @@ class CdkStack(Stack):
         iam.User(self, "User",
             password=self.secret.secret_value
         )
+# secret rotation for database secret 
+        self.secret1=secretsmanager.Secret(self, 'Secret', 
+        generate_secret_string=secretsmanager.SecretStringGenerator(
+        secret_string_template=json.dumps({"username": "postgres", "engine": "postgres", "host": "database-1.cle5jfgpyx3r.us-west-2.rds.amazonaws.com", 
+            "port": "5432", 
+            "dbname": "postgres"}),
+        generate_string_key="password"
+            )
+        )
+
+        # secret.add_rotation_schedule("RotationSchedule",
+        #         automatically_after=core.Duration.days(60),
+        #         hosted_rotation=secretsmanager.HostedRotation.mysql_single_user()
+        #     )
+
+
 
         CfnOutput(self,
                 id="VPCId",
