@@ -43,5 +43,5 @@ jobs:
         cdk list
         cdk synth
         cdk bootstrap
-        cdk deploy --require-approval never
-        #cdk destroy --force
+        # cdk deploy --require-approval never
+        cdk destroy --force
