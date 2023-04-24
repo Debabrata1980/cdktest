@@ -252,26 +252,26 @@ class CdkStack(Stack):
 #Creation of managed airflow environment
 
 
-        managed_airflow = mwaa.CfnEnvironment(self,
-            id='airflow-test-environment',
-            name=airflow_env_name,
-            airflow_configuration_options={'core.default_timezone': 'utc'},
-            airflow_version='2.0.2',
-            dag_s3_path="dags",
-            environment_class='mw1.small',
-            execution_role_arn=mwaa_service_role.role_arn,
-            #kms_key=key.key_arn,
-            logging_configuration=logging_configuration,
-            max_workers=5,
-            network_configuration=network_configuration,
-            #plugins_s3_object_version=None,
-            #plugins_s3_path=None,
-            #requirements_s3_object_version=None,
-            #requirements_s3_path=None,
-            source_bucket_arn=dags_bucket_arn,
-            webserver_access_mode='PUBLIC_ONLY'
-            #weekly_maintenance_window_start=None
-        )
+        # managed_airflow = mwaa.CfnEnvironment(self,
+        #     id='airflow-test-environment',
+        #     name=airflow_env_name,
+        #     airflow_configuration_options={'core.default_timezone': 'utc'},
+        #     airflow_version='2.0.2',
+        #     dag_s3_path="dags",
+        #     environment_class='mw1.small',
+        #     execution_role_arn=mwaa_service_role.role_arn,
+        #     #kms_key=key.key_arn,
+        #     logging_configuration=logging_configuration,
+        #     max_workers=5,
+        #     network_configuration=network_configuration,
+        #     #plugins_s3_object_version=None,
+        #     #plugins_s3_path=None,
+        #     #requirements_s3_object_version=None,
+        #     #requirements_s3_path=None,
+        #     source_bucket_arn=dags_bucket_arn,
+        #     webserver_access_mode='PUBLIC_ONLY'
+        #     #weekly_maintenance_window_start=None
+        # )
 
 # Some parameters of mwaa and the tags
         options = {
@@ -286,8 +286,8 @@ class CdkStack(Stack):
             'service': 'MWAA Apache AirFlow',
             'Name': f"{params['env_name']}"}
 
-        managed_airflow.add_override('Properties.AirflowConfigurationOptions', options)
-        managed_airflow.add_override('Properties.Tags', tags)
+        # managed_airflow.add_override('Properties.AirflowConfigurationOptions', options)
+        # managed_airflow.add_override('Properties.Tags', tags)
 
 # Templated secret
         self.templated_secret = secretsmanager.Secret(self, "TemplatedSecret",
@@ -304,7 +304,7 @@ class CdkStack(Stack):
             password=self.secret.secret_value
         )
 # secret rotation for database secret 
-        self.secret1=secretsmanager.Secret(self, 'Secret', 
+        self.secret1=secretsmanager.Secret(self, 'Secretdb', 
         generate_secret_string=secretsmanager.SecretStringGenerator(
         secret_string_template=json.dumps({"username": "postgres", "engine": "postgres", "host": "database-1.cle5jfgpyx3r.us-west-2.rds.amazonaws.com", 
             "port": "5432", 
@@ -337,37 +337,37 @@ class CdkStack(Stack):
                     username="clusteradmin"
                 )
 
-    def define_rds(self,params):
+    # def define_rds(self,params):
 
-            # vpc = ec2.Vpc.from_lookup(self, 'VPC' + '_' + params["name"], vpc_id=params["vpc_id"])
+    #         # vpc = ec2.Vpc.from_lookup(self, 'VPC' + '_' + params["name"], vpc_id=params["vpc_id"])
 
-             retention = Duration.days(7)
-    # #        key = kms.Ikey("arn:aws:kms:us-east-1:409599951855:key/20c09f0c-e88a-4b33-aaef-d1e675c3f28e")
+    #          retention = Duration.days(7)
+    # # #        key = kms.Ikey("arn:aws:kms:us-east-1:409599951855:key/20c09f0c-e88a-4b33-aaef-d1e675c3f28e")
 
 
-            # engine = rds.DatabaseInstanceEngine.postgres(version=rds.PostgresEngineVersion.VER_11_13)
-             engine = rds.DatabaseInstanceEngine.mysql(version=rds.MysqlEngineVersion.VER_5_7_37)
-             instance = rds.DatabaseInstance(self, "meta_tag_rds",
-                              engine=engine,
-                              database_name = "meta_tag_rds",
-                              instance_type = ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE3, ec2.InstanceSize.MICRO),
-                              license_model = rds.LicenseModel.GENERAL_PUBLIC_LICENSE,
-                              availability_zone = "us-west-2a",
-                              backup_retention = retention,
-                             # cloudwatch_logs_exports = ["upgrade"],
-                              copy_tags_to_snapshot = True,
-                              vpc=self.vpc,
-                              deletion_protection = True,
-                              enable_performance_insights = True,
-                              instance_identifier = "meta_tag_rds",
-                              iops = 3000,
-                              max_allocated_storage = 2000,
-                              port = 3306,
-                              publicly_accessible = False,
-                              security_groups = [self.security_group],
-                              storage_type = rds.StorageType.IO1,
-                              credentials=rds.Credentials.from_secret(self.secret)
-                              )
+    #         # engine = rds.DatabaseInstanceEngine.postgres(version=rds.PostgresEngineVersion.VER_11_13)
+    #          engine = rds.DatabaseInstanceEngine.mysql(version=rds.MysqlEngineVersion.VER_5_7_37)
+    #          instance = rds.DatabaseInstance(self, "meta_tag_rds",
+    #                           engine=engine,
+    #                           database_name = "meta_tag_rds",
+    #                           instance_type = ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE3, ec2.InstanceSize.MICRO),
+    #                           license_model = rds.LicenseModel.GENERAL_PUBLIC_LICENSE,
+    #                           availability_zone = "us-west-2a",
+    #                           backup_retention = retention,
+    #                          # cloudwatch_logs_exports = ["upgrade"],
+    #                           copy_tags_to_snapshot = True,
+    #                           vpc=self.vpc,
+    #                           deletion_protection = True,
+    #                           enable_performance_insights = True,
+    #                           instance_identifier = "meta_tag_rds",
+    #                           iops = 3000,
+    #                           max_allocated_storage = 2000,
+    #                           port = 3306,
+    #                           publicly_accessible = False,
+    #                           security_groups = [self.security_group],
+    #                           storage_type = rds.StorageType.IO1,
+    #                           credentials=rds.Credentials.from_secret(self.secret)
+    #                           )
 #                             performance_insight_encryption_key = ["arn:aws:kms:us-east-1:409599951855:key/20c09f0c-e88a-4b33-aaef-d1e675c3f28e"],
 #                             credentials={"username": "clusteradmin"}
  #                             credentials={"username": "clusteradmin"}
